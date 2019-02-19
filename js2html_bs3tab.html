@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<body></body>
+<script>
+//클라이언트에서 tab html를 동적으로 만들어낸다.
+// data to bsTab
+var tabData = {
+    data: [
+        //tabName, tabContent
+        ['menu1','aaaaaa'],
+        ['menu2','bbb'],
+        ['menu3','ccc']
+    ],
+    boxName: 'tab1',
+    activeNum: 0
+};
+tabData['data'][0][0] = '메뉴1';//탭 이름
+tabData['data'][0][1] = '내용1111111111111';//탭 내용
+
+function bs_tabHtml(tabData){
+    let str1='', str2='';
+    let boxname =  (typeof tabData.boxName !='undefined') ? ' id="'+ tabData.boxName +'"' : '';
+    let prename =  (typeof tabData.boxName !='undefined') ? tabData.boxName+'_' : '';
+
+    for (let i = 0, leng = tabData.data.length; i < leng; i++) {
+        str1 += '<li'+ ( tabData.activeNum == i ? ' class="active"' : '') +'><a data-toggle="tab" href="#'+ prename +'tab_'+ i +'">'+ tabData.data[i][0] +'</a></li>';
+        str2 += '<div id="'+ prename +'tab_'+ i +'" class="tab-pane'+  ( tabData.activeNum == i ? ' active' : '') +'">'+ tabData.data[i][1] +'</div>';
+    }
+    console.log(tabData)
+
+
+    let rs = `
+        <div`+ boxname +`>
+            <ul class="nav nav-tabs">
+                `+ str1 +`
+            </ul>
+            <div class="tab-content">
+                `+ str2 +`
+            </div>
+        </div>
+    `;
+    console.log(rs);
+    return rs;
+}
+tabHtml= bs_tabHtml(tabData);
+$('body').html(tabHtml);
+
+
+</script>
